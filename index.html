@@ -749,6 +749,36 @@
   animation: aparecer 0.8s ease both;
 }
 
+/* ===== EFECTO ELEGANTE DE APARICIÓN DE TEXTOS ===== */
+
+.aparecer-texto {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.aparecer-texto.visible-texto {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Aparición suave de las letras de los nombres */
+.hero-names {
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+/* Respeta a quienes prefieren menos animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .aparecer-texto,
+  .hero-names {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
   </style>
 </head>
 
@@ -1179,6 +1209,63 @@ function actualizarCuenta() {
 
 actualizarCuenta();
 setInterval(actualizarCuenta, 1000);
+
+
+
+
+/* ===== ACTIVAR APARICIÓN AL DESPLAZARSE ===== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectores = [
+    ".hero-pretitle",
+    ".hero-names",
+    ".hero-date",
+    ".hero-message",
+    ".eyebrow",
+    ".section-title",
+    ".body-copy",
+    ".ornament",
+    ".count-item",
+    ".event-card",
+    ".gift-symbol",
+    ".dress-code",
+    ".action-item",
+    ".final-photo-wrap",
+    ".final-names",
+    ".final-date",
+    ".elegant-button"
+  ];
+
+  const elementos = document.querySelectorAll(
+    selectores.join(", ")
+  );
+
+  elementos.forEach((elemento, indice) => {
+    elemento.classList.add("aparecer-texto");
+
+    /* Pequeño retraso para dar un efecto elegante */
+    elemento.style.transitionDelay =
+      `${(indice % 4) * 0.12}s`;
+  });
+
+  const observador = new IntersectionObserver(
+    (entradas, observer) => {
+      entradas.forEach(entrada => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("visible-texto");
+          observer.unobserve(entrada.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -30px 0px"
+    }
+  );
+
+  elementos.forEach(elemento => observador.observe(elemento));
+});
+
 </script>
 
 
