@@ -107,30 +107,18 @@
     }
 
     /* INVITACIÓN PRINCIPAL */
-  #invitation {
-  display: none;
-  position: relative;
-  isolation: isolate;
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--crema);
-}
-
-/* Fondo fijo: ocupa solo la pantalla y no se estira con el largo de la página */
-#invitation::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  max-width: var(--mobile-width);
-  margin: 0 auto;
-  z-index: -1;
-  background: url("descarga88.jpg") center top / cover no-repeat;
-  pointer-events: none;
-}
+    #invitation {
+      display: none;
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--crema);
+      background-image: url("descarga88.jpg");
+      background-position: center top;
+      background-repeat: repeat-y;
+      background-size: 100% auto;
+    }
 
     #invitation.visible {
       display: block;
